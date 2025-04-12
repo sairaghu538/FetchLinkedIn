@@ -11,7 +11,7 @@
 <body>
     <h1>Fetch LinkedIn Profile</h1>
 
-    <input type="text" id="linkedin_url" placeholder="Enter LinkedIn profile URL">
+    <input type="text" id="linkedin_url" placeholder="Enter LinkedIn profile URL" />
     <button onclick="fetchProfile()">Fetch Profile</button>
 
     <div id="profile_data"></div>
@@ -25,9 +25,33 @@
                 return;
             }
 
-            // Make the GET request to your Flask backend
+            // Fetch profile data from the Flask backend
             $.get(`/fetch_linkedin?url=${url}`, function (data) {
-                let resultHTML = "<h2>Profile Data:</h2><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                let resultHTML = "<h2>Profile Data:</h2>";
+
+                if (data.error) {
+                    resultHTML += `<p>Error: ${data.error}</p>`;
+                } else {
+                    // Display profile data in a more user-friendly way
+                    resultHTML += `<h3>Name: ${data.first_name} ${data.last_name}</h3>`;
+                    resultHTML += `<p>Headline: ${data.headline}</p>`;
+                    resultHTML += `<p>Location: ${data.location}</p>`;
+                    resultHTML += `<h4>Education:</h4>`;
+                    resultHTML += "<ul>";
+                    data.education.forEach((edu) => {
+                        resultHTML += `<li>${edu.degree} from ${edu.school}</li>`;
+                    });
+                    resultHTML += "</ul>";
+
+                    resultHTML += `<h4>Work Experience:</h4>`;
+                    resultHTML += "<ul>";
+                    data.work_experience.forEach((work) => {
+                        resultHTML += `<li>${work.title} at ${work.company}</li>`;
+                    });
+                    resultHTML += "</ul>";
+                }
+
+                // Inject the result HTML into the 'profile_data' div
                 document.getElementById('profile_data').innerHTML = resultHTML;
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 alert("Error fetching data: " + errorThrown);
