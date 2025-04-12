@@ -1,5 +1,6 @@
 # backend.py
 from flask import Flask, render_template, request, jsonify
+import streamlit as st
 import requests
 import os
 from dotenv import load_dotenv
