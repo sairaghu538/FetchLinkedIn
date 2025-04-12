@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile</title>
+</head>
+
+<body>
+    <h1>LinkedIn Profile</h1>
+
+    {% if data %}
+    <h2>{{ data.first_name }} {{ data.last_name }}</h2>
+    <p><strong>Headline:</strong> {{ data.headline }}</p>
+    <p><strong>Location:</strong> {{ data.location }}</p>
+
+    <h3>Education:</h3>
+    {% for edu in data.education %}
+    <p>{{ edu.degree }} from {{ edu.school }}</p>
+    {% endfor %}
+
+    <h3>Work Experience:</h3>
+    {% for work in data.work_experience %}
+    <p>{{ work.title }} at {{ work.company }}</p>
+    {% endfor %}
+
+    {% else %}
+    <p>No data available for this profile.</p>
+    {% endif %}
+
+    <br><br>
+    <a href="/">Go Back</a>
+</body>
+
+</html>

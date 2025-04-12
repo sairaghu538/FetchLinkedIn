@@ -5,59 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkedIn Profile Fetcher</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <h1>Fetch LinkedIn Profile</h1>
-
-    <input type="text" id="linkedin_url" placeholder="Enter LinkedIn profile URL" />
-    <button onclick="fetchProfile()">Fetch Profile</button>
-
-    <div id="profile_data"></div>
-
-    <script>
-        function fetchProfile() {
-            const url = document.getElementById('linkedin_url').value;
-
-            if (!url) {
-                alert("Please enter a LinkedIn profile URL.");
-                return;
-            }
-
-            // Fetch profile data from the Flask backend
-            $.get(`/fetch_linkedin?url=${url}`, function (data) {
-                let resultHTML = "<h2>Profile Data:</h2>";
-
-                if (data.error) {
-                    resultHTML += `<p>Error: ${data.error}</p>`;
-                } else {
-                    // Display profile data in a more user-friendly way
-                    resultHTML += `<h3>Name: ${data.first_name} ${data.last_name}</h3>`;
-                    resultHTML += `<p>Headline: ${data.headline}</p>`;
-                    resultHTML += `<p>Location: ${data.location}</p>`;
-                    resultHTML += `<h4>Education:</h4>`;
-                    resultHTML += "<ul>";
-                    data.education.forEach((edu) => {
-                        resultHTML += `<li>${edu.degree} from ${edu.school}</li>`;
-                    });
-                    resultHTML += "</ul>";
-
-                    resultHTML += `<h4>Work Experience:</h4>`;
-                    resultHTML += "<ul>";
-                    data.work_experience.forEach((work) => {
-                        resultHTML += `<li>${work.title} at ${work.company}</li>`;
-                    });
-                    resultHTML += "</ul>";
-                }
-
-                // Inject the result HTML into the 'profile_data' div
-                document.getElementById('profile_data').innerHTML = resultHTML;
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert("Error fetching data: " + errorThrown);
-            });
-        }
-    </script>
+    <h1>Enter LinkedIn URL</h1>
+    <form action="/fetch_linkedin" method="get">
+        <input type="text" name="url" placeholder="Enter LinkedIn URL" required>
+        <button type="submit">Fetch Profile</button>
+    </form>
 </body>
 
 </html>
