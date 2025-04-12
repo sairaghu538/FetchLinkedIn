@@ -17,7 +17,7 @@ API_KEY = 'mLdfG--VXEWPXG2Sb9nDeQ'
 API_ENDPOINT = "https://nubela.co/proxycurl/api/v2/linkedin"
 HEADERS = {'Authorization': f'Bearer {API_KEY}'}
 
-# @app.route('/fetch_linkedin', methods=['GET'])
+@app.route('/fetch_linkedin', methods=['GET'])
 def fetch_linkedin():
     linkedin_url = request.args.get('url')
     if not linkedin_url:
