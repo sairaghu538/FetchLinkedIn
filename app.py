@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Flask app setup
-app = Flask(__name__)
-CORS(app)
+# app = Flask(__name__)
+# CORS(app)
 
 # Proxycurl API Setup
 API_KEY = 'mLdfG--VXEWPXG2Sb9nDeQ'
