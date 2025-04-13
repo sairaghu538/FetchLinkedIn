@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 # Your Proxycurl API key and endpoint
 API_KEY = os.getenv('PROXY_URL_LINKEDIN')  # Make sure the API key is stored in .env
+# API_KEY = 'YOUR_API_KEY'  # For testing Purpose I kept API Key here only
 API_ENDPOINT = "https://nubela.co/proxycurl/api/v2/linkedin"
 HEADERS = {'Authorization': f'Bearer {API_KEY}'}
 
